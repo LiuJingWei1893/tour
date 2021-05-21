@@ -15,6 +15,7 @@ var dest = strings.Join([]string{
 	"now: 获取当前时间",
 	"calc: 根据给定时间或当前时间以及时间间隔，给出经过计算后的时间",
 }, "\n")
+
 var timeCmd = &cobra.Command{
 	Use:   "time",
 	Short: "时间格式处理",
