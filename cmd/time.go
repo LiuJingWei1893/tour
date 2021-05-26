@@ -44,7 +44,8 @@ var calculateTimeCmd = &cobra.Command{
 	Long:  "计算所需时间",
 	Run: func(cmd *cobra.Command, args []string) {
 		var currentTimer time.Time
-		layout := "2006-01-02 15:04:05"
+		layout := "2006-01-02 15:04:05" //go时间标准格式
+		location, _ := time.LoadLocation("Asia/Shanghai")
 		if calculateTime == "" {
 			currentTimer = timer.GetNewTime()
 		} else {
@@ -55,7 +56,7 @@ var calculateTimeCmd = &cobra.Command{
 				log.Fatalf("calculate输入格式有误")
 			}
 			var err error
-			currentTimer, err = time.Parse(layout, calculateTime)
+			currentTimer, err = time.ParseInLocation(layout, calculateTime, location) //将时间从字符串parse为time的时候需要注意时区
 			if err != nil {
 				t, _ := strconv.Atoi(calculateTime)
 				currentTimer = time.Unix(int64(t), 0)
